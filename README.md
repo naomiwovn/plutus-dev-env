@@ -1,3 +1,5 @@
+# Imported from nstankov-bg/ppp container
+
 # NOTE: This repo was for cohort 1. The pattern can probably continue to be followed. Check `Issues` and `Pull requests` to see if there are changes in case this repo seems to be broken. I will also point out https://github.com/nstankov-bg/ppp as a fork for cohort 2.
 
 # Plutus Pioneers Program - Playground
