@@ -1,4 +1,10 @@
 # Now includes Archlinux docker container with archlinux-nix
+
+```
+cd archlinux
+docker build .
+```
+
 Still running into the following errors
 After running 
 ```
