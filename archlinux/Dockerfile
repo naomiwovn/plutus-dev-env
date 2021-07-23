@@ -7,6 +7,13 @@ RUN cabal update --ghc --dynlibdir=/opt/ghcdynlibs \
 
 RUN pacman -S --needed base-devel --noconfirm 
 
+# Plutus
+WORKDIR /opt
+ARG PLUTUS_GIT_COMMIT=ea0ca4e9f9821a9dbfc5255fa0f42b6f2b3887c4
+RUN git clone https://github.com/input-output-hk/plutus /opt/plutus && \
+	cd /opt/plutus && \
+	git checkout ${PLUTUS_GIT_COMMIT}
+
 # makepkg requires non-root user AND requires a password for sudoers
 # Make new user and remove password requirements
 RUN useradd -G wheel --no-create-home --shell=/bin/false pioneer && usermod -L pioneer 
@@ -40,6 +47,7 @@ RUN echo "sandbox = false \
 use-sqlite-wal = false \
 system-feature = kvm " >> /etc/nix/nix.conf
 
+# Plutus Pioneer Program
 WORKDIR /opt
 RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program &&\
     cd plutus-pioneer-program
