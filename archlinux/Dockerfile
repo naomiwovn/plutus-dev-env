@@ -46,12 +46,9 @@ RUN nix-env -u
 
 # Nix gives systemd error for archlinux
 # Build groups and bootstrap system
-RUN archlinux-nix setup-build-group
-RUN archlinux-nix enable-nix-daemon 
+# RUN archlinux-nix setup-build-group
+# RUN archlinux-nix enable-nix-daemon 
 # RUN archlinux-nix bootstrap
-
-# after first install and before rebooting, activate nix in each new shell
-RUN source /etc/profile.d/nix{,-daemon}.sh
 
 RUN echo "substituters        = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/" >> /etc/nix/nix.conf
 RUN echo "trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" >> /etc/nix/nix.conf
@@ -60,13 +57,17 @@ RUN chmod 777 /etc/nix/nix.conf
 RUN echo -e "sandbox = false" >> /etc/nix/nix.conf
 RUN echo -e "use-sqlite-wal = false" >> /etc/nix/nix.conf
 
-# Plutus Pioneer Program
-WORKDIR /opt
-RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program
+# after first install and before rebooting, activate nix in each new shell
+RUN source /etc/profile.d/nix{,-daemon}.sh
 
 WORKDIR /opt/plutus
 RUN cd /opt/plutus 
 RUN nix build -f default.nix plutus.haskell.packages.plutus-core
+
+
+# Plutus Pioneer Program
+WORKDIR /opt
+RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program
 
 # RUN cd /opt/plutus-pioneer-program/code/week01
 # RUN nix-shell --run "cabal build all"
