@@ -47,7 +47,7 @@ RUN nix-env -u
 # Nix gives systemd error for archlinux
 # Build groups and bootstrap system
 RUN archlinux-nix setup-build-group
-# RUN archlinux-nix enable-nix-daemon 
+RUN archlinux-nix enable-nix-daemon 
 # RUN archlinux-nix bootstrap
 
 # after first install and before rebooting, activate nix in each new shell
