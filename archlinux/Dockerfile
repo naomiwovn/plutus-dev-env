@@ -36,9 +36,8 @@ USER root
 WORKDIR /opt
 ARG PLUTUS_GIT_COMMIT=ea0ca4e9f9821a9dbfc5255fa0f42b6f2b3887c4
 RUN git clone https://github.com/input-output-hk/plutus /opt/plutus && \
-	cd /opt/plutus && \
-	git checkout ${PLUTUS_GIT_COMMIT}
-
+	cd /opt/plutus
+	# git checkout ${PLUTUS_GIT_COMMIT}
 
 RUN yay -S nix --noconfirm
 RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable
@@ -54,20 +53,18 @@ RUN archlinux-nix setup-build-group
 # after first install and before rebooting, activate nix in each new shell
 RUN source /etc/profile.d/nix{,-daemon}.sh
 
-
 RUN echo "substituters        = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/" >> /etc/nix/nix.conf
 RUN echo "trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" >> /etc/nix/nix.conf
 
 RUN chmod 777 /etc/nix/nix.conf
 RUN echo -e "sandbox = false" >> /etc/nix/nix.conf
 RUN echo -e "use-sqlite-wal = false" >> /etc/nix/nix.conf
-# RUN echo -e "system-feature = kvm" >> /etc/nix/nix.conf
 
 # Plutus Pioneer Program
 WORKDIR /opt
-RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program &&\
-    cd plutus-pioneer-program
+RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program
 
+WORKDIR /opt/plutus
 RUN cd /opt/plutus 
 RUN nix build -f default.nix plutus.haskell.packages.plutus-core
 
