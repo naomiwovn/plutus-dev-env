@@ -54,7 +54,7 @@ RUN echo -e "use-sqlite-wal = false" >> /etc/nix/nix.conf
 RUN source /etc/profile.d/nix{,-daemon}.sh
 
 WORKDIR /opt/plutus
-RUN cd /opt/plutus 
+RUN chmod 777 /opt/plutus && cd /opt/plutus 
 RUN nix build -f default.nix plutus.haskell.packages.plutus-core
 
 # Plutus Pioneer Program
