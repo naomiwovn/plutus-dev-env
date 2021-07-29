@@ -56,7 +56,7 @@ RUN echo -e "use-sqlite-wal = false" >> /etc/nix/nix.conf
 
 WORKDIR /opt/plutus
 RUN chmod 777 /opt/plutus && cd /opt/plutus 
-RUN nix build -f default.nix plutus.haskell.packages.plutus-core
+RUN nix build -f default.nix plutus.haskell.packages.plutus-core -v
 
 
 USER pioneer 
