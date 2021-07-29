@@ -1,20 +1,29 @@
 # Now includes Archlinux docker container with archlinux-nix
 
+Build local
 ```
 cd archlinux
-docker build . 
+docker build . archlinux-plutus
 ```
 
 Archlinux-Plutus
 ```
-docker run -it naomiwovn/archlinux-plutus
+docker run -it archlinux-plutus
 cd /opt/plutus
 nix-shell
-
 cd /opt/plutus-pioneer-program
 cabal update
 cabal build all
 ```
+
+New version includes this in the Dockerfile
+```
+cd /opt/plutus-pioneer-program
+cabal update
+cabal build all
+```
+
+
 
 Plutus-Pioneer-Program
 ```
