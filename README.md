@@ -2,25 +2,21 @@
 
 ```
 cd archlinux
-docker build .
+docker build . 
 ```
 
-Still running into the following errors
-After running 
+Archlinux-Plutus
 ```
-archlinux-nix bootsrap
+docker run -it naomiwovn/archlinux-plutus
+cd /opt/plutus
+nix-shell
+
+cd /opt/plutus-pioneer-program
+cabal update
+cabal build all
 ```
-```
-#15 38.39 Adding build-sandbox-paths to /etc/nix/nix.conf ...
-#15 38.40 Enabling sandboxing ...
-#15 38.41 Killing daemon ...
-#15 38.41 System has not been booted with systemd as init system (PID 1). Can't operate.
-#15 38.41 Failed to connect to bus: Host is down
-#15 38.43 System has not been booted with systemd as init system (PID 1). Can't operate.
-#15 38.43 Failed to connect to bus: Host is down
-#15 38.43 Loading nix-daemon into systemd ...
-#15 38.44 System has not been booted with systemd as init system (PID 1). Can't operate.
-#15 38.44 Failed to connect to bus: Host is down
+
+Plutus-Pioneer-Program
 ```
 
 ## Imported from nstankov-bg/ppp 
