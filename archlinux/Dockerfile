@@ -46,9 +46,6 @@ RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 RUN nix-channel --update
 RUN nix-env -u 
 
-WORKDIR /opt/plutus
-RUN chmod 777 /opt/plutus && cd /opt/plutus 
-RUN nix build -f default.nix plutus.haskell.packages.plutus-core
 
 # avoid building ghc
 RUN chmod 777 /etc/nix/nix.conf
@@ -56,6 +53,11 @@ RUN echo "substituters        = https://hydra.iohk.io https://iohk.cachix.org ht
 RUN echo "trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" >> /etc/nix/nix.conf
 RUN echo -e "sandbox = false" >> /etc/nix/nix.conf
 RUN echo -e "use-sqlite-wal = false" >> /etc/nix/nix.conf
+
+WORKDIR /opt/plutus
+RUN chmod 777 /opt/plutus && cd /opt/plutus 
+RUN nix build -f default.nix plutus.haskell.packages.plutus-core
+
 
 USER pioneer 
 # Plutus Pioneer Program
