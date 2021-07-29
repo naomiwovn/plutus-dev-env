@@ -61,3 +61,6 @@ RUN nix build -f default.nix plutus.haskell.packages.plutus-core
 WORKDIR /opt
 RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /opt/plutus-pioneer-program
 
+WORKDIR /opt/plutus-pioneer-program/code/week01
+RUN cabal update
+RUN cabal build all 
