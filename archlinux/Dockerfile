@@ -62,7 +62,7 @@ RUN nix build -f default.nix plutus.haskell.packages.plutus-core -v
 USER pioneer 
 # Plutus Pioneer Program
 WORKDIR /home/pioneer
-RUN git clone https://github.com/input-output-hk/plutus-pioneer-program PIONEERPATH
+RUN git clone https://github.com/input-output-hk/plutus-pioneer-program /home/pioneer/plutus-pioneer-program
 
 # still builds ghc ... add redundant nix.conf files :D 
 RUN mkdir -p ~/.config/nix
@@ -72,11 +72,9 @@ RUN echo -e "sandbox = false" >> ~/.config/nix/nix.conf
 RUN echo -e "use-sqlite-wal = false" >> ~/.config/nix/nix.conf
 
 # after first install and before rebooting, activate nix in each new shell
-RUN source /etc/profile.d/nix{,-daemon}.sh
-RUN cd PIONEERPATH
+# RUN source /etc/profile.d/nix{,-daemon}.sh
+
 # build
-# WORKDIR /opt/plutus
-# RUN nix-shell
-# RUN cd /opt/plutus-pioneer-program/code/week01
-# RUN cabal update
-# RUN cabal build all 
+WORKDIR /opt/plutus
+RUN sudo nix-shell --run "exit" -v
+# RUN sudo nix-shell --run "cd /home/pioneer/plutus-pioneer-program/code/week01 && cabal update" -v
