@@ -76,5 +76,5 @@ RUN echo -e "use-sqlite-wal = false" >> ~/.config/nix/nix.conf
 
 # build
 WORKDIR /opt/plutus
-RUN sudo nix-shell --run "exit" -v
+RUN sudo nix-shell default.nix -v
 # RUN sudo nix-shell --run "cd /home/pioneer/plutus-pioneer-program/code/week01 && cabal update" -v
