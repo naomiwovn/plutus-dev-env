@@ -1,6 +1,6 @@
 {
     "name": "Plutus Starter Project",
-    "image": "plutus-devcontainer:latest",
+    "image": "hamishmack/plutus-devcontainer:latest",
     
     "mounts": [
         // This shares cabal's remote repository state with the host. We don't mount the whole of '.cabal', because
